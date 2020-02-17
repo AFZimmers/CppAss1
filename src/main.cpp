@@ -1,62 +1,50 @@
 #include <iostream>
+#include <algorithm>
 #include <cstdlib>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 #include "StudentRecord.h"
+#include "main.h"
 
-void clear();
 
-void optAddRecord();
-
-void optReadData();
-
-void optSaveData();
-
-void optGetStudentMarks();
-
-void optGrade();
 
 using namespace std;
 
-std::vector<StudentRecord> ram_data;
-
 int main() {
-
-    bool first = true;
     for (;;) {
-
+        ZMMALE001::clear();
         std::cout << "1. add studentRecord" << std::endl;
         std::cout << "2. read database" << std::endl;
         std::cout << "3. save database" << std::endl;
         std::cout << "4. display given studentRecord data" << std::endl;
-        std::cout << "5. grade studentRecord" << std::endl;
-        std::cout << "" << std::endl;
+        std::cout << "5. grade studentRecord" << std::endl << std::endl;
         std::cout << "Enter a number (or q to quit) and press return." << std::endl;
 
         char option;
 
         cin >> option;
-        cout << &"chosen " [ option] << endl;
+        cout << &"chosen "[option] << endl;
 
         switch (option) {
 
             case '1':
                 cout << "executing add..." << endl;
-                optAddRecord();
+                ZMMALE001::optAddRecord();
                 cout << "done executing add..." << endl;
                 break;
             case '2':
-                optReadData();
+                ZMMALE001::optReadData();
                 break;
             case '3':
-                optSaveData();
+                ZMMALE001::optSaveData();
                 break;
             case '4':
-                optGetStudentMarks();
+                ZMMALE001::optGetStudentMarks();
                 break;
             case '5':
-                optGrade();
+                ZMMALE001::optGrade();
                 break;
         }
         if (option == 'q') { break; }
@@ -64,23 +52,77 @@ int main() {
     return 0;
 }
 
-void optGrade() {
+void ZMMALE001::optGrade() {
 // todo search for student number and print average of grades.
 
+    try {
+        ZMMALE001::StudentRecord student = ZMMALE001::getRecord();
+        cin.ignore();
+
+        string records = student.classRecord;
+        double avg, count = 0.0, total = 0.0;
+        // Used to split string around spaces.
+        istringstream ss(records);
+
+        // Traverse through all words
+        int subject;
+        do {
+            // Read a word
+            ss >> subject;
+            total += subject;
+            count++;
+        } while (ss);
+
+        avg = (total - subject )/ (count-1);
+
+        // print avg
+        cout << "Average for " + student.studentNumber + " is : " + to_string(avg) << endl;
+
+    } catch (exception &e) {
+        cerr << e.what() << endl;
+    }
+
 }
 
-void optGetStudentMarks() {
-// todo search for student number and print grades.
+void ZMMALE001::optGetStudentMarks() {
+
+    try {
+        ZMMALE001::StudentRecord student = ZMMALE001::getRecord();
+        cout << student.classRecord << endl;
+    } catch (exception &e) {
+        cerr << e.what() << endl;
+    }
+
+}
+
+ZMMALE001::StudentRecord &ZMMALE001::getRecord() {
+
+    string studentNumber;
+    cout << "Enter Student Number: ";
+    cin >> studentNumber;
+    std::transform(studentNumber.begin(), studentNumber.end(), studentNumber.begin(), ::toupper);
+
+    for (ZMMALE001::StudentRecord &s : ZMMALE001::ram_data) {
+        if (s.studentNumber == studentNumber) {
+            return s;
+        }
+    }
+
+    throw exception("Student Not Found!");
 }
 
 
-void optSaveData() {
+void ZMMALE001::optSaveData() {
 // format: name,surname,student-number,marks
 
+    string fname;
+    cout << "Enter Filename or File Path : ";
+    cin >> fname;
+
     cout << "Saving..." << endl;
-    ofstream ofs("data.csv");
+    ofstream ofs(fname);
     string line;
-    for (const StudentRecord &sr : ram_data) {
+    for (const ZMMALE001::StudentRecord &sr : ZMMALE001::ram_data) {
         line = sr.name + "," + sr.surname + "," + sr.studentNumber + "," + sr.classRecord;
         cout << line << endl;
         ofs << line << endl;
@@ -88,29 +130,33 @@ void optSaveData() {
     ofs.close();
 }
 
-void optReadData() {
+void ZMMALE001::optReadData() {
 // todo load CSV and replace ram_data with data from CSV
+    string fname;
+    cout << "Enter Filename or File Path : ";
+    cin >> fname;
 
-    ifstream ifs("data.csv");
+    ifstream ifs(fname);
     string name, surname, studentNumber, marks;
-    StudentRecord temp;
+    ZMMALE001::StudentRecord temp;
 
     // empty ram_data vector.
-    ram_data.clear();
+    ZMMALE001::ram_data.clear();
 
-    while(getline(ifs, name, ',')){
+    while (getline(ifs, name, ',')) {
         temp.name = name;
 
         getline(ifs, surname, ',');
         temp.surname = surname;
 
         getline(ifs, studentNumber, ',');
+        std::transform(studentNumber.begin(), studentNumber.end(), studentNumber.begin(), ::toupper);
         temp.studentNumber = studentNumber;
 
         getline(ifs, marks);
         temp.classRecord = marks;
 
-        ram_data.push_back(temp);
+        ZMMALE001::ram_data.push_back(temp);
         cout << "Loaded " + temp.studentNumber + " into memory.";
     }
 
@@ -118,7 +164,7 @@ void optReadData() {
 
 }
 
-void optAddRecord() {
+void ZMMALE001::optAddRecord() {
 
     string name;
     string surname;
@@ -133,22 +179,37 @@ void optAddRecord() {
 
     cout << "Enter Student Number: " << endl;
     cin >> studentNumber;
+    std::transform(studentNumber.begin(), studentNumber.end(), studentNumber.begin(), ::toupper);
+
 
     cout << "Enter Marks: " << endl;
     cin.ignore();
     getline(cin, classRecord);
-    //cin >> ws;
-//    cout << classRecord;
 
     // create object
-    StudentRecord s = StudentRecord{name, surname, studentNumber, classRecord};
+    ZMMALE001::StudentRecord s = ZMMALE001::StudentRecord{name, surname, studentNumber, classRecord};
 
-    // add to a vector (list)
-    ram_data.push_back(s);
-    cout << "Record for " + s.studentNumber + " added." << endl;
+    try {
+        ZMMALE001::StudentRecord s2 = ZMMALE001::getRecord(s.studentNumber);
+        cout << "Student " + s2.studentNumber + " already exists!" << endl;
+    } catch (exception& e){
+        ZMMALE001::ram_data.push_back(s);
+        cout << "Record for " + s.studentNumber + " added." << endl;
+    }
+
 }
 
-void clear() {
+void ZMMALE001::clear() {
     // todo change to clear
     system("cls");
+}
+
+ZMMALE001::StudentRecord &ZMMALE001::getRecord(std::string studentNumber) {
+    for (ZMMALE001::StudentRecord &s : ZMMALE001::ram_data) {
+        if (s.studentNumber == studentNumber) {
+            return s;
+        }
+    }
+
+    throw exception("Student Not Found!");
 }

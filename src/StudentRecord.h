@@ -1,20 +1,22 @@
 //
 // Created by User on 2020-02-13.
 //
+#ifndef ASSIGMENT_1_STUDENT_H
+#define ASSIGMENT_1_STUDENT_H
+
 #include <cstring>
 #include <string>
 #include <ostream>
 
-#ifndef ASSIGMENT_1_STUDENT_H
-#define ASSIGMENT_1_STUDENT_H
+namespace ZMMALE001 {
 
-
-struct StudentRecord {
-    std::string name;
-    std::string surname;
-    std::string studentNumber;
-    std::string classRecord;
-};
+    struct StudentRecord {
+        std::string name;
+        std::string surname;
+        std::string studentNumber;
+        std::string classRecord;
+    };
+}
 //public:
 //    StudentRecord(std::string name, std::string surname, std::string studentNumber, std::string classRecord);
 //
