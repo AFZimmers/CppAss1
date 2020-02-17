@@ -33,6 +33,7 @@ int main() {
                 cout << "executing add..." << endl;
                 ZMMALE001::optAddRecord();
                 cout << "done executing add..." << endl;
+
                 break;
             case '2':
                 ZMMALE001::optReadData();
@@ -78,8 +79,8 @@ void ZMMALE001::optGrade() {
         // print avg
         cout << "Average for " + student.studentNumber + " is : " + to_string(avg) << endl;
 
-    } catch (exception &e) {
-        cout << "0" << endl;
+    } catch (int e) {
+        cout << e << endl;
     }
 
 }
@@ -89,8 +90,8 @@ void ZMMALE001::optGetStudentMarks() {
     try {
         ZMMALE001::StudentRecord student = ZMMALE001::getRecord();
         cout << student.classRecord << endl;
-    } catch (exception &e) {
-        cerr << e.what() << endl;
+    } catch (int e) {
+        cerr << e << endl;
     }
 
 }
