@@ -4,7 +4,6 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
-#include <exception>
 
 #include "StudentRecord.h"
 #include "main.h"
@@ -80,7 +79,7 @@ void ZMMALE001::optGrade() {
         cout << "Average for " + student.studentNumber + " is : " + to_string(avg) << endl;
 
     } catch (exception &e) {
-        cerr << e.what() << endl;
+        cout << "0" << endl;
     }
 
 }
@@ -212,5 +211,5 @@ ZMMALE001::StudentRecord &ZMMALE001::getRecord(std::string studentNumber) {
         }
     }
 
-    throw exception("Student Not Found!");
+    throw (0);
 }
