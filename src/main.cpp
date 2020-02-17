@@ -90,8 +90,8 @@ void ZMMALE001::optGetStudentMarks() {
     try {
         ZMMALE001::StudentRecord student = ZMMALE001::getRecord();
         cout << student.classRecord << endl;
-    } catch (int e) {
-        cerr << e << endl;
+    } catch (exception& e) {
+        cout << "not found" << endl;
     }
 
 }
@@ -109,7 +109,7 @@ ZMMALE001::StudentRecord &ZMMALE001::getRecord() {
         }
     }
 
-    throw ("not found");
+    throw invalid_argument("not found");
 }
 
 
@@ -212,5 +212,5 @@ ZMMALE001::StudentRecord &ZMMALE001::getRecord(std::string studentNumber) {
         }
     }
 
-    throw ("not found");
+    throw invalid_argument("not found");
 }
