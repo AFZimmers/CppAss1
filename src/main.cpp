@@ -109,7 +109,7 @@ ZMMALE001::StudentRecord &ZMMALE001::getRecord() {
         }
     }
 
-    throw (0);
+    throw ("not found");
 }
 
 
@@ -212,5 +212,5 @@ ZMMALE001::StudentRecord &ZMMALE001::getRecord(std::string studentNumber) {
         }
     }
 
-    throw (0);
+    throw ("not found");
 }
