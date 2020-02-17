@@ -108,7 +108,7 @@ ZMMALE001::StudentRecord &ZMMALE001::getRecord() {
         }
     }
 
-    throw exception("Student Not Found!");
+    throw (0);
 }
 
 
