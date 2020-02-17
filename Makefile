@@ -8,8 +8,8 @@ CC=g++
 CCFLAGS=-std=c++14
 
 SRC = src/main.cpp \
-        src/studentRecord.cpp \
-        src/studentRecord.h \
+        src/main.h \
+        src/StudentRecord.h \
 
 OBJ = $(SRC:.cpp=.o)
 
