@@ -53,7 +53,9 @@ int main() {
                 ZMMALE001::optGrade();
                 break;
         }
-        if (option == 'q') { break; }
+        if (option == 'q') {
+            ZMMALE001::clear();
+            break; }
     }
     return 0;
 }
