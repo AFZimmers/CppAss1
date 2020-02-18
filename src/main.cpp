@@ -84,8 +84,8 @@ void ZMMALE001::optGrade() {
         // print avg
         cout << "Average for " + student.studentNumber + " is : " + to_string(avg) << endl;
 
-    } catch (int e) {
-        cout << e << endl;
+    } catch (exception& e) {
+        cout << "not found" << endl;
     }
 
 }
