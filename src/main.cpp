@@ -14,7 +14,7 @@ using namespace std;
 
 int main() {
     for (;;) {
-        ZMMALE001::clear();
+        //ZMMALE001::clear();
         std::cout << "1. add studentRecord" << std::endl;
         std::cout << "2. read database" << std::endl;
         std::cout << "3. save database" << std::endl;
@@ -30,21 +30,26 @@ int main() {
         switch (option) {
 
             case '1':
+                ZMMALE001::clear();
                 cout << "executing add..." << endl;
                 ZMMALE001::optAddRecord();
                 cout << "done executing add..." << endl;
 
                 break;
             case '2':
+                ZMMALE001::clear();
                 ZMMALE001::optReadData();
                 break;
             case '3':
+                ZMMALE001::clear();
                 ZMMALE001::optSaveData();
                 break;
             case '4':
+                ZMMALE001::clear();
                 ZMMALE001::optGetStudentMarks();
                 break;
             case '5':
+                ZMMALE001::clear();
                 ZMMALE001::optGrade();
                 break;
         }
@@ -202,7 +207,7 @@ void ZMMALE001::optAddRecord() {
 
 void ZMMALE001::clear() {
     // todo change to clear
-    system("cls");
+    system("clear");
 }
 
 ZMMALE001::StudentRecord &ZMMALE001::getRecord(std::string studentNumber) {
