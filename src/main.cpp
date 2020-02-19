@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 #include "StudentRecord.h"
 #include "main.h"
@@ -199,7 +200,9 @@ void ZMMALE001::optAddRecord() {
 
     try {
         ZMMALE001::StudentRecord s2 = ZMMALE001::getRecord(s.studentNumber);
+
         cout << "Student " + s2.studentNumber + " already exists!" << endl;
+
     } catch (exception& e){
         ZMMALE001::ram_data.push_back(s);
         cout << "Record for " + s.studentNumber + " added." << endl;
