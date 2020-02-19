@@ -169,7 +169,7 @@ void ZMMALE001::optReadData() {
         cout << "Loaded " + temp.studentNumber + " into memory.";
     }
 
-    cout << "Finished loading records...";
+    cout << "Finished loading records..."<<endl;
 
 }
 
